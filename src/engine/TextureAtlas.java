@@ -6,7 +6,7 @@ public class TextureAtlas
     public static Texture texture;
 
     public static final float atlasWidth = 512f, atlasHeight = 512f;
-    public static float bgWidth = 284f, bgHeight = 512f, bgStartX = 0;
+    public static float bgWidth = 100f, bgHeight = 100f, bgStartX = 0f;
     public static float birdWidth = 125f, birdHeight = 88f, birdStartX = 336f, birdStartY = 42f;
     public static float pipeWidth = 52f, pipeHeight = 320f, pipeStartX = 372f, pipeStartY = 192f;
 
@@ -61,8 +61,8 @@ public class TextureAtlas
     {
         return new float[]
                 {
-                        bgStartX, 0,
-                        (bgWidth/atlasWidth), 0,
+                        bgStartX, 0f,
+                        (bgWidth/atlasWidth), 0f,
                         (bgWidth/atlasWidth), (bgHeight/ atlasHeight),
                         bgStartX, (bgHeight/ atlasHeight)
 //                        0, 0,

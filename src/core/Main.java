@@ -4,14 +4,20 @@ import engine.*;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+import world.Level;
 
 public class Main
 {
-
+    //Window/Game Loop related objects
     public static final int WIDTH = 500, HEIGHT = 700;
     private static Window window;
-    private static final double fpsCap = 1.0/60.0;
+    private static final double fpsCap = 1.0 / 60.0;
     private static double time, unprocessedTime = 0;
+
+    //Game objects
+    public static Camera camera;
+
+    private static Level level;
 
     public static void main(String[] args)
     {
@@ -59,7 +65,7 @@ public class Main
                 window.update();
                 update();
 
-                if(frameTime >= 1.0)
+                if (frameTime >= 1.0)
                 {
                     //Reset FPS counter (This part gets executed every second)
                     frameTime = 0;
@@ -68,7 +74,7 @@ public class Main
                 }
             }
 
-            if(canRender)
+            if (canRender)
             {
                 GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
                 render();
@@ -82,17 +88,18 @@ public class Main
 
     private static void update()
     {
-
+        level.update();
     }
 
     private static void render()
     {
-
+        level.render();
     }
 
     private static void init()
     {
-
+        camera = new Camera(WIDTH, HEIGHT);
+        level = new Level();
     }
 
     private static void initGL()
@@ -101,22 +108,20 @@ public class Main
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//        Shader.loadShaders();
+        Shader.loadShaders();
         Handler.loadHandler(window);
-//        TextureAtlas.loadTextureAtlas("/res/textureAtlas.png");
+        TextureAtlas.loadTextureAtlas("/resources/textureAtlas.png");
+        TextureAtlas.texture.bind();
     }
 
     private static void loadAudio()
     {
         AudioManager.init();
-//        AudioManager.loadAudio("/res/audio/score.wav", "score");
-//        AudioManager.loadAudio("/res/audio/dead.wav", "dead");
-//        AudioManager.loadAudio("/res/audio/wing.wav", "wing");
     }
 
     private static void flush()
     {
-//        Shader.deleteAll();
+        Shader.deleteAll();
         window.flush();
         AudioManager.flush();
         GL.destroy();
@@ -124,6 +129,7 @@ public class Main
         System.out.println("Disposed Resources");
         System.exit(0);
     }
+
     private static double getTime()
     {
         return (double) System.nanoTime() / (double) 1000000000L;
