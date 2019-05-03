@@ -9,6 +9,7 @@ public abstract class Entity
     public Vector3f rotationVector;
     public Mesh mesh;
     public Camera camera;
+    public Shader shader;
 
     public Entity()
     {
