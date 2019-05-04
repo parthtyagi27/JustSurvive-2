@@ -4,29 +4,33 @@ import core.Main;
 
 public class Level
 {
-    private static Background[] backgrounds = new Background[3];
-    private Ground ground;
+    private static Ground[] grounds = new Ground[3];
+    private Background background;
 
     public Level()
     {
-        for(int i = 0; i < backgrounds.length; i++)
-            backgrounds[i] = new Background();
-        backgrounds[0].positionVector.x = -Main.WIDTH;
-        backgrounds[2].positionVector.x = Main.WIDTH;
+        background = new Background();
 
-        ground = new Ground();
+        for(int i = 0; i < grounds.length; i++)
+        {
+            grounds[i] = new Ground(-Main.WIDTH + (i * Main.WIDTH));
+            System.out.println("Ground at: " + i + ", grassCount = " + grounds[i].grassCount);
+        }
+        grounds[0].positionVector.x = -Main.WIDTH;
+        grounds[2].positionVector.x = Main.WIDTH;
+
     }
 
     public void render()
     {
-        for(Background background : backgrounds)
-            background.render();
-        ground.render();
+        background.render();
+        for(Ground ground : grounds)
+            ground.render();
     }
 
     public void update()
     {
-        for(Background background : backgrounds)
-            background.update();
+        for(Ground ground : grounds)
+            ground.update();
     }
 }
