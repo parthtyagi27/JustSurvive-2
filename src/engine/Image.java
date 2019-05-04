@@ -15,9 +15,10 @@ public class Image
 
     public Image(String path)
     {
-        BufferedImage bufferedImage;
+        BufferedImage bufferedImage = null;
         try
         {
+            System.out.println(path);
             bufferedImage = ImageIO.read(getClass().getResourceAsStream(path));
             width = bufferedImage.getWidth();
             height = bufferedImage.getHeight();

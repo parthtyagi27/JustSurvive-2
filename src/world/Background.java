@@ -12,14 +12,14 @@ public class Background extends Entity
         camera = Main.camera;
         shader = Shader.backgroundShader;
 
-        float[] verticies =
+        float[] vertices =
                 {
                         0, Main.HEIGHT, 0,
                         Main.WIDTH, Main.HEIGHT, 0,
                         Main.WIDTH, 0, 0,
                         0,0,0
                 };
-        mesh = new Mesh(verticies, TextureAtlas.getBackgroundTexture());
+        mesh = new Mesh(vertices, TextureAtlas.getBackgroundTexture());
         positionVector = new Vector3f();
     }
     @Override
@@ -34,7 +34,5 @@ public class Background extends Entity
 
     @Override
     public void update()
-    {
-
-    }
+    {}
 }

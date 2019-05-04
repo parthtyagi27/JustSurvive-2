@@ -9,6 +9,7 @@ public class TextureAtlas
     public static float bgWidth = 100f, bgHeight = 100f, bgStartX = 0f;
     public static float birdWidth = 125f, birdHeight = 88f, birdStartX = 336f, birdStartY = 42f;
     public static float pipeWidth = 52f, pipeHeight = 320f, pipeStartX = 372f, pipeStartY = 192f;
+    public static float groundWidth = 10f, groundHeight = 10f, groundStartX = 100f, groundStartY = 10f;
 
 
     public static void loadTextureAtlas(String file)
@@ -74,6 +75,18 @@ public class TextureAtlas
 //1,0,
 //1,1,
 //0,1,
+                };
+
+    }
+
+    public static float[] getGroundTexture()
+    {
+        return new float[]
+                {
+                        ((groundStartX)/atlasWidth), ((groundStartY)/atlasHeight),
+                        ((groundStartX + groundWidth)/atlasWidth), ((groundStartY)/atlasHeight),
+                        ((groundStartX + groundWidth)/atlasWidth), ((groundStartY + groundHeight)/atlasHeight),
+                        ((groundStartX)/atlasWidth), ((groundStartY + groundHeight)/atlasHeight)
                 };
     }
 }

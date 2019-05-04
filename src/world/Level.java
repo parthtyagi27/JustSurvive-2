@@ -1,21 +1,32 @@
 package world;
 
+import core.Main;
+
 public class Level
 {
-    private Background background;
+    private static Background[] backgrounds = new Background[3];
+    private Ground ground;
 
     public Level()
     {
-        background = new Background();
+        for(int i = 0; i < backgrounds.length; i++)
+            backgrounds[i] = new Background();
+        backgrounds[0].positionVector.x = -Main.WIDTH;
+        backgrounds[2].positionVector.x = Main.WIDTH;
+
+        ground = new Ground();
     }
 
     public void render()
     {
-        background.render();
+        for(Background background : backgrounds)
+            background.render();
+        ground.render();
     }
 
     public void update()
     {
-
+        for(Background background : backgrounds)
+            background.update();
     }
 }
