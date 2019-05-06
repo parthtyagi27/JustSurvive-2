@@ -6,6 +6,14 @@ import org.joml.Vector3f;
 
 public class Background extends Entity
 {
+    private static Mesh mesh;
+
+    @Override
+    public Mesh getMesh()
+    {
+        return mesh;
+    }
+
     @Override
     public boolean usingModelMatrix()
     {

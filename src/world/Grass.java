@@ -10,6 +10,7 @@ public class Grass extends Entity
 {
 
     private static final float WIDTH = TextureAtlas.grassWidth, HEIGHT = TextureAtlas.grassHeight;
+    private static Mesh mesh;
 
     @Override
     public boolean usingModelMatrix()
@@ -57,5 +58,11 @@ public class Grass extends Entity
             positionVector.x += Ground.xSPEED;
         else if(Handler.isKeyDown(GLFW.GLFW_KEY_D))
             positionVector.x -= Ground.xSPEED;
+    }
+
+    @Override
+    public Mesh getMesh()
+    {
+        return mesh;
     }
 }

@@ -12,6 +12,13 @@ public class Ground extends Entity
     public static final float xSPEED = 3f;
     public int grassCount;
     private Grass[] grass;
+    private static Mesh mesh;
+
+    @Override
+    public Mesh getMesh()
+    {
+        return mesh;
+    }
 
     public Ground(float xPosition)
     {

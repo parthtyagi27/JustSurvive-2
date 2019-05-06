@@ -4,9 +4,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Renderer
@@ -46,7 +44,7 @@ public class Renderer
         for(Entity entity : entityArray)
         {
             entityShader.setUniform("model", Transformation.createTransformation(entity.positionVector).scale(scale));
-            Renderer.drawMesh(entity.mesh);
+            Renderer.drawMesh(entity.getMesh());
         }
         entityShader.unbind();
     }
@@ -57,7 +55,7 @@ public class Renderer
         entityArray[0].shader.setUniform("sampler", 0);
         entityArray[0].shader.setUniform("projection", entityArray[0].camera.getProjectionMatrix());
 
-        Mesh mesh = entityArray[0].mesh;
+        Mesh mesh = entityArray[0].getMesh();
 
         GL20.glEnableVertexAttribArray(0);
 
@@ -89,10 +87,9 @@ public class Renderer
     public static void drawEntities(ArrayList<Entity> entityArrayList)
     {
         entityArrayList.get(0).shader.bind();
-        entityArrayList.get(0).shader.setUniform("sampler", 0);
         entityArrayList.get(0).shader.setUniform("projection", entityArrayList.get(0).camera.getProjectionMatrix());
 
-        Mesh mesh = entityArrayList.get(0).mesh;
+        Mesh mesh = entityArrayList.get(0).getMesh();
 
         GL20.glEnableVertexAttribArray(0);
 
@@ -109,8 +106,10 @@ public class Renderer
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, mesh.getIndexID());
         for(int i = 0; i < entityArrayList.size(); i++)
         {
-            if(entityArrayList.get(i).usingModelMatrix())
+            entityArrayList.get(0).shader.setUniform("sampler", entityArrayList.get(i).samplerIndex);
+            if(entityArrayList.get(i).usingModelMatrix()) {
                 entityArrayList.get(0).shader.setUniform("model", Transformation.createTransformation(entityArrayList.get(i).positionVector).scale(entityArrayList.get(i).scale));
+            }
             GL15.glDrawElements(GL15.GL_TRIANGLES, mesh.getVertexCount(), GL15.GL_UNSIGNED_INT, 0);
         }
 
