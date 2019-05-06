@@ -1,6 +1,5 @@
 package engine;
 
-import com.sun.media.sound.WaveFileReader;
 import org.lwjgl.openal.AL10;
 
 import javax.sound.sampled.AudioFormat;
@@ -59,18 +58,7 @@ public class WaveData {
      * @param path URL to file
      * @return WaveData containing data, or null if a failure occured
      */
-    public static WaveData create(URL path) {
-        try {
-            // due to an issue with AudioSystem.getAudioInputStream
-            // and mixing unsigned and signed code
-            // we will use the reader directly
-            WaveFileReader wfr = new WaveFileReader();
-            return create(wfr.getAudioInputStream(new BufferedInputStream(path.openStream())));
-        } catch (Exception e) {
-            System.out.println("Unable to create from: " + path + ", " + e.getMessage());
-            return null;
-        }
-    }
+
 
     /**
      * Creates a WaveData container from the specified in the classpath
