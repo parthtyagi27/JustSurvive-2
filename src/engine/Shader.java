@@ -14,7 +14,7 @@ public class Shader
 //  Creates and manages Shader programs for OpenGL
     private  int program, vertexShaderID, fragmentShaderID;
 //  All Shaders are static so they can easily be used, also Shaders don't need to be instanced as it leads to redundancies
-    public static Shader backgroundShader, groundShader, grassShader;
+    public static Shader backgroundShader, groundShader, grassShader, playerShader;
 
     public Shader(String filename)
     {
@@ -64,6 +64,7 @@ public class Shader
         backgroundShader = new Shader("/shaders/background");
         groundShader = new Shader("/shaders/ground");
         grassShader = new Shader("/shaders/grass");
+        playerShader = new Shader("/shaders/player");
     }
 
     public void setUniform(String name, int value)
@@ -110,6 +111,7 @@ public class Shader
         backgroundShader.delete();
         groundShader.delete();
         grassShader.delete();
+        playerShader.delete();
     }
 
     public void unbind()
