@@ -14,6 +14,8 @@ public class Level
     private Player player;
     private EntityBatch entityBatch;
 
+    public static float deltaGroundMovement = 0;
+
     public Level()
     {
         entityBatch = new EntityBatch();
@@ -50,5 +52,10 @@ public class Level
     {
         for(Ground ground : grounds)
             ground.update();
+
+        if(deltaGroundMovement % 9 == 0 && deltaGroundMovement != 0)
+        {
+            player.animate();
+        }
     }
 }

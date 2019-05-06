@@ -71,6 +71,12 @@ public class Mesh
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }
 
+    public void setTexture(float[] texture)
+    {
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, textureID);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, createFloatBuffer(texture), GL15.GL_STATIC_DRAW);
+    }
+
     private FloatBuffer createFloatBuffer(float[] data)
     {
         FloatBuffer buffer = BufferUtils.createFloatBuffer(data.length);

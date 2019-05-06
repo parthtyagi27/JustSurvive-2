@@ -8,6 +8,9 @@ public class Player extends Entity
 {
     public static  float WIDTH, HEIGHT;
 
+    public int animationIndex = 0;
+
+
     public Player()
     {
         super();
@@ -27,9 +30,10 @@ public class Player extends Entity
                         0, 0, 0
                 };
 
-        mesh = new Mesh(vertices, TextureAtlas.getPlayerTexture());
+        mesh = new Mesh(vertices, TextureAtlas.getPlayerTexture(animationIndex));
         positionVector.x = (Main.WIDTH - WIDTH)/2;
         positionVector.y = Ground.HEIGHT;
+
     }
     @Override
     public void render()
@@ -46,6 +50,25 @@ public class Player extends Entity
     public void update()
     {
 
+    }
+
+
+    public void animate()
+    {
+        float[] vertices =
+                {
+                        0, HEIGHT, 0,
+                        WIDTH, HEIGHT, 0,
+                        WIDTH, 0, 0,
+                        0, 0, 0
+                };
+
+        if(animationIndex <= 2)
+            animationIndex++;
+        else
+            animationIndex = 0;
+
+        mesh.setTexture(TextureAtlas.getPlayerTexture(animationIndex));
     }
 
     @Override

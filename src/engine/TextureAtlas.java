@@ -11,7 +11,7 @@ public class TextureAtlas
     public static final float pipeWidth = 52f, pipeHeight = 320f, pipeStartX = 372f, pipeStartY = 192f;
     public static final float groundWidth = 10f, groundHeight = 10f, groundStartX = 100f, groundStartY = 10f;
     public static final float grassWidth = 10f, grassHeight = 6f, grassStartX = 100f, grassStartY = 20f;
-    public static final float playerWidth = 10f, playerHeight = 10f, playerStartX = 100f, playerStartY = 56;
+    public static final float playerWidth = 10f, playerHeight = 10f, playerStartX0 = 100f, playerStartY0 = 66f, playerStartY1 = 76f, playerStartY2 = 86f;
 
     public static void loadTextureAtlas(String file)
     {
@@ -102,14 +102,49 @@ public class TextureAtlas
                 };
     }
 
-    public static float[] getPlayerTexture()
+    public static float[] getPlayerTexture0()
     {
         return new float[]
                 {
-                        ((playerStartX)/atlasWidth), ((playerStartY)/atlasHeight),
-                        ((playerStartX + playerWidth)/atlasWidth), ((playerStartY)/atlasHeight),
-                        ((playerStartX + playerWidth)/atlasWidth), ((playerStartY + playerHeight)/atlasHeight),
-                        ((playerStartX)/atlasWidth), ((playerStartY + playerHeight)/atlasHeight)
+                        ((playerStartX0)/atlasWidth), ((playerStartY0)/atlasHeight),
+                        ((playerStartX0 + playerWidth)/atlasWidth), ((playerStartY0)/atlasHeight),
+                        ((playerStartX0 + playerWidth)/atlasWidth), ((playerStartY0 + playerHeight)/atlasHeight),
+                        ((playerStartX0)/atlasWidth), ((playerStartY0 + playerHeight)/atlasHeight)
                 };
     }
+
+    public static float[] getPlayerTexture1()
+    {
+        return new float[]
+                {
+                        ((playerStartX0)/atlasWidth), ((playerStartY1)/atlasHeight),
+                        ((playerStartX0 + playerWidth)/atlasWidth), ((playerStartY1)/atlasHeight),
+                        ((playerStartX0 + playerWidth)/atlasWidth), ((playerStartY1 + playerHeight)/atlasHeight),
+                        ((playerStartX0)/atlasWidth), ((playerStartY1 + playerHeight)/atlasHeight)
+                };
+    }
+
+    public static float[] getPlayerTexture2()
+    {
+        return new float[]
+                {
+                        ((playerStartX0)/atlasWidth), ((playerStartY2)/atlasHeight),
+                        ((playerStartX0 + playerWidth)/atlasWidth), ((playerStartY2)/atlasHeight),
+                        ((playerStartX0 + playerWidth)/atlasWidth), ((playerStartY2 + playerHeight)/atlasHeight),
+                        ((playerStartX0)/atlasWidth), ((playerStartY2 + playerHeight)/atlasHeight)
+                };
+    }
+
+    public static float[] getPlayerTexture(int animationIndex)
+    {
+        return new float[]
+                {
+                        ((playerStartX0)/atlasWidth), ((playerStartY0 + 10 * animationIndex)/atlasHeight),
+                        ((playerStartX0 + playerWidth)/atlasWidth), ((playerStartY0 + 10 * animationIndex)/atlasHeight),
+                        ((playerStartX0 + playerWidth)/atlasWidth), ((playerStartY0 + playerHeight + 10 * animationIndex)/atlasHeight),
+                        ((playerStartX0)/atlasWidth), ((playerStartY0 + playerHeight + 10 * animationIndex)/atlasHeight)
+                };
+    }
+
+
 }

@@ -65,10 +65,17 @@ public class Ground extends Entity
     @Override
     public void update()
     {
-        if(Handler.isKeyDown(GLFW.GLFW_KEY_A))
+        if(Handler.isKeyDown(GLFW.GLFW_KEY_A)) {
             positionVector.x += xSPEED;
-        else if(Handler.isKeyDown(GLFW.GLFW_KEY_D))
+            Level.deltaGroundMovement += xSPEED;
+        }
+        else if(Handler.isKeyDown(GLFW.GLFW_KEY_D)) {
             positionVector.x -= xSPEED;
+            Level.deltaGroundMovement += xSPEED;
+        }else
+        {
+            Level.deltaGroundMovement = 0;
+        }
 
         for(Grass g : grass)
             g.update();
