@@ -11,12 +11,17 @@ public class Grass extends Entity
 
     private static final float WIDTH = TextureAtlas.grassWidth, HEIGHT = TextureAtlas.grassHeight;
 
+    @Override
+    public boolean usingModelMatrix()
+    {
+        return true;
+    }
+
     public Grass(float groundXPosition)
     {
         super();
         camera = Main.camera;
         shader = Shader.grassShader;
-
         float[] vertices =
                 {
                         0, HEIGHT, 0,
@@ -25,10 +30,13 @@ public class Grass extends Entity
                         0, 0, 0
                 };
 
+
         mesh = new Mesh(vertices, TextureAtlas.getGrassTexture());
 
         positionVector.x = new Random().nextInt((int)((Main.WIDTH + groundXPosition) + 1 - groundXPosition)) + groundXPosition;
         positionVector.y = Ground.HEIGHT;
+
+        scale  = 4;
     }
 
     @Override

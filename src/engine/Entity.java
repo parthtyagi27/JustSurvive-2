@@ -10,6 +10,7 @@ public abstract class Entity
     public Mesh mesh;
     public Camera camera;
     public Shader shader;
+    public float scale = 1;
 
     public Entity()
     {
@@ -19,4 +20,5 @@ public abstract class Entity
 
     public abstract void render();
     public abstract void update();
+    public abstract boolean usingModelMatrix();
 }

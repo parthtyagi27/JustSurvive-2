@@ -9,7 +9,7 @@ import java.util.Random;
 public class Ground extends Entity
 {
     public static final float HEIGHT = 200f;
-    public static final float xSPEED = 2f;
+    public static final float xSPEED = 3f;
     public int grassCount;
     private Grass[] grass;
 
@@ -37,7 +37,15 @@ public class Ground extends Entity
         {
             grass[i] = new Grass(positionVector.x());
         }
+
+        scale = 1;
     }
+
+    public Grass[] getGrassArray()
+    {
+        return grass;
+    }
+
     @Override
     public void render()
     {
@@ -48,8 +56,10 @@ public class Ground extends Entity
         Renderer.drawMesh(mesh);
         shader.unbind();
 
-        for(Grass g : grass)
-            g.render();
+//        for(Grass g : grass)
+//            g.render();
+//        Renderer.drawBatch(grass, Shader.grassShader, camera, 4);
+        Renderer.drawEntities(grass, 4);
     }
 
     @Override
@@ -62,5 +72,11 @@ public class Ground extends Entity
 
         for(Grass g : grass)
             g.update();
+    }
+
+    @Override
+    public boolean usingModelMatrix()
+    {
+        return true;
     }
 }

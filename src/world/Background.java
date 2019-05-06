@@ -6,6 +6,12 @@ import org.joml.Vector3f;
 
 public class Background extends Entity
 {
+    @Override
+    public boolean usingModelMatrix()
+    {
+        return false;
+    }
+
     public Background()
     {
         super();
