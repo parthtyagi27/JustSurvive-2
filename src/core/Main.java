@@ -112,7 +112,7 @@ public class Main
         Shader.loadShaders();
         Handler.loadHandler(window);
         TextureAtlas.loadTextureAtlas("/resources/textureAtlas.png");
-        TextureAtlas.texture.bind();
+        TextureAtlas.texture.bind(0);
     }
 
     private static void loadAudio()

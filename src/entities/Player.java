@@ -7,6 +7,7 @@ import world.Ground;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Player extends Entity
 {
@@ -65,7 +66,6 @@ public class Player extends Entity
             animationIndex = 0;
 
         samplerIndex = animationIndex;
-//        mesh.setTexture(TextureAtlas.getPlayerTexture(animationIndex));
     }
 
     @Override
