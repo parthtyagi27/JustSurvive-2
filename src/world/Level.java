@@ -22,7 +22,7 @@ public class Level
         for(int i = 0; i < grounds.length; i++)
         {
             grounds[i] = new Ground(-Main.WIDTH + (i * Main.WIDTH));
-            entityBatch.addEntities(grounds[i].getGrassArray());
+//            entityBatch.addEntities(grounds[i].getGrassArray());
             System.out.println("Ground at: " + i + ", grassCount = " + grounds[i].grassCount);
         }
         grounds[0].positionVector.x = -Main.WIDTH;
@@ -32,7 +32,8 @@ public class Level
 
         entityBatch.addEntity(background);
         entityBatch.addEntities(grounds);
-        entityBatch.addEntity(player);
+        for(Ground ground : grounds)
+            entityBatch.addEntities(ground.getGrassArray());
     }
 
     public void render()
@@ -42,6 +43,7 @@ public class Level
 //            ground.render();
 //        player.render();
         entityBatch.render();
+        player.render();
     }
 
     public void update()

@@ -33,7 +33,7 @@ public class Grass extends Entity
 
         mesh = new Mesh(vertices, TextureAtlas.getGrassTexture());
 
-        positionVector.x = new Random().nextInt((int)((Main.WIDTH + groundXPosition) + 1 - groundXPosition)) + groundXPosition;
+        positionVector.x = new Random().nextInt((int)((Main.WIDTH + groundXPosition - WIDTH*4) + 1 - groundXPosition)) + groundXPosition;
         positionVector.y = Ground.HEIGHT;
 
         scale  = 4;
