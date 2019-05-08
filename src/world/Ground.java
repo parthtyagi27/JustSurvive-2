@@ -2,6 +2,7 @@ package world;
 
 import core.Main;
 import engine.*;
+import entities.Player;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Random;
@@ -77,11 +78,13 @@ public class Ground extends Entity
             positionVector.x += xSPEED;
             Level.deltaGroundMovement += xSPEED;
             isMoving = true;
+            Player.setFacingLeft();
         }
         else if(Handler.isKeyDown(GLFW.GLFW_KEY_D)) {
             positionVector.x -= xSPEED;
             Level.deltaGroundMovement += xSPEED;
             isMoving = true;
+            Player.setFacingRight();
         }else
         {
             Level.deltaGroundMovement = 0;
