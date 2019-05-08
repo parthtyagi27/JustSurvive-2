@@ -152,6 +152,7 @@ public class Texture
 
     public void bind()
     {
+//        GL13.glActiveTexture(id);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
     }
 
