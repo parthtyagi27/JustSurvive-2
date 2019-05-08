@@ -87,6 +87,7 @@ public class Renderer
     public static void drawEntities(ArrayList<Entity> entityArrayList)
     {
         entityArrayList.get(0).shader.bind();
+        entityArrayList.get(0).getTexture().bind();
         entityArrayList.get(0).shader.setUniform("projection", entityArrayList.get(0).camera.getProjectionMatrix());
 
         Mesh mesh = entityArrayList.get(0).getMesh();
