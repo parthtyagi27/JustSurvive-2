@@ -65,4 +65,10 @@ public class Grass extends Entity
     {
         return mesh;
     }
+
+    @Override
+    public Texture getTexture()
+    {
+        return TextureAtlas.texture;
+    }
 }

@@ -49,4 +49,10 @@ public class Background extends Entity
     @Override
     public void update()
     {}
+
+    @Override
+    public Texture getTexture()
+    {
+        return TextureAtlas.texture;
+    }
 }

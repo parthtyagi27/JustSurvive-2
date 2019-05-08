@@ -3,11 +3,7 @@ package entities;
 import core.Main;
 import engine.*;
 import world.Ground;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import world.Level;
 
 public class Player extends Entity
 {
@@ -16,6 +12,8 @@ public class Player extends Entity
     public int animationIndex = 0;
 
     private static Mesh mesh;
+    private static Mesh[] meshes = new Mesh[3];
+//    private static Texture[] animationTexture = new Texture[3];
 
     public Player()
     {
@@ -39,11 +37,19 @@ public class Player extends Entity
         mesh = new Mesh(vertices, TextureAtlas.getPlayerTexture(animationIndex));
         positionVector.x = (Main.WIDTH - WIDTH)/2;
         positionVector.y = Ground.HEIGHT;
+//        animationTexture[0] = new Texture("/resources/survivor_idle.png");
+//        animationTexture[1] = new Texture("/resources/survivor_runningF2Left.png");
+//        animationTexture[2] = new Texture("/resources/survivor_runningF3Left.png");
+        meshes[0] = mesh;
+        meshes[1] = new Mesh(vertices, TextureAtlas.getPlayerTexture1());
+        meshes[2] = new Mesh(vertices, TextureAtlas.getPlayerTexture2());
     }
     @Override
     public void render()
     {
         shader.bind();
+//        TODO: Edit Player Texture coordinate and make sure they are bound before rendering!
+//        animationTexture[animationIndex].bind();
         shader.setUniform("sampler", 0);
         shader.setUniform("projection", camera.getProjectionMatrix());
         shader.setUniform("model", Transformation.createTransformation(positionVector).scale(scale));
@@ -54,13 +60,31 @@ public class Player extends Entity
     @Override
     public void update()
     {
-
+        if(Level.deltaGroundMovement % 5*10 == 0 && Ground.isMoving)
+        {
+//            animate();
+            if(animationIndex >= meshes.length)
+                animationIndex = 0;
+            else
+                animationIndex++;
+            mesh = meshes[animationIndex];
+        } else if(!Ground.isMoving)
+        {
+            mesh = meshes[0];
+            animationIndex = 0;
+        }
     }
 
+    @Override
+    public Texture getTexture()
+    {
+//        return animationTexture[animationIndex];
+        return TextureAtlas.texture;
+    }
 
     public void animate()
     {
-        if(animationIndex <= 2)
+        if(animationIndex < meshes.length)
             animationIndex++;
         else
             animationIndex = 0;

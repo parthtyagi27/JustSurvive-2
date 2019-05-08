@@ -13,6 +13,7 @@ public class Ground extends Entity
     public int grassCount;
     private Grass[] grass;
     private static Mesh mesh;
+    public static boolean isMoving = false;
 
     @Override
     public Mesh getMesh()
@@ -75,13 +76,16 @@ public class Ground extends Entity
         if(Handler.isKeyDown(GLFW.GLFW_KEY_A)) {
             positionVector.x += xSPEED;
             Level.deltaGroundMovement += xSPEED;
+            isMoving = true;
         }
         else if(Handler.isKeyDown(GLFW.GLFW_KEY_D)) {
             positionVector.x -= xSPEED;
             Level.deltaGroundMovement += xSPEED;
+            isMoving = true;
         }else
         {
             Level.deltaGroundMovement = 0;
+            isMoving = false;
         }
 
         for(Grass g : grass)
@@ -92,5 +96,11 @@ public class Ground extends Entity
     public boolean usingModelMatrix()
     {
         return true;
+    }
+
+    @Override
+    public Texture getTexture()
+    {
+        return TextureAtlas.texture;
     }
 }

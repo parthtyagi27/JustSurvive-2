@@ -18,7 +18,7 @@ public class Level
 
     public Level()
     {
-        entityBatch = new EntityBatch();
+        entityBatch = new EntityBatch(5);
         background = new Background();
 
         for(int i = 0; i < grounds.length; i++)
@@ -57,5 +57,6 @@ public class Level
         {
             player.animate();
         }
+        player.update();
     }
 }

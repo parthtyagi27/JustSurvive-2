@@ -23,4 +23,5 @@ public abstract class Entity
     public abstract void update();
     public abstract boolean usingModelMatrix();
     public abstract Mesh getMesh();
+    public abstract Texture getTexture();
 }
