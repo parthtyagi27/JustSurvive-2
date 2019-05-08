@@ -53,10 +53,6 @@ public class Level
         for(Ground ground : grounds)
             ground.update();
 
-        if(deltaGroundMovement % 9 == 0 && deltaGroundMovement != 0)
-        {
-            player.animate();
-        }
         player.update();
     }
 }
