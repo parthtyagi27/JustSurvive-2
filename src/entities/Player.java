@@ -15,7 +15,7 @@ public class Player extends Entity
 
     private static Mesh mesh;
     private static Mesh[] meshes = new Mesh[3];
-//    private static Texture[] animationTexture = new Texture[3];
+    public static float XPOSITION;
     private static boolean facingLeft = true;
 
     public Player()
@@ -23,6 +23,7 @@ public class Player extends Entity
         super();
 
         scale = 3;
+        XPOSITION = (Main.WIDTH - WIDTH)/2;
         WIDTH = TextureAtlas.playerWidth * scale;
         HEIGHT = TextureAtlas.playerHeight * scale;
 
@@ -31,10 +32,6 @@ public class Player extends Entity
 
         float[] vertices =
                 {
-//                        0, HEIGHT, 0,
-//                        WIDTH, HEIGHT, 0,
-//                        WIDTH, 0, 0,
-//                        0, 0, 0
                         -WIDTH/2, HEIGHT/2, 0,
                         WIDTH/2, HEIGHT/2, 0,
                         WIDTH/2, -HEIGHT/2, 0,
@@ -42,11 +39,9 @@ public class Player extends Entity
                 };
 
         mesh = new Mesh(vertices, TextureAtlas.getPlayerTexture(animationIndex));
-        positionVector.x = (Main.WIDTH - WIDTH)/2;
+        positionVector.x = XPOSITION;
         positionVector.y = Ground.HEIGHT + HEIGHT * 1.5f;
-//        animationTexture[0] = new Texture("/resources/survivor_idle.png");
-//        animationTexture[1] = new Texture("/resources/survivor_runningF2Left.png");
-//        animationTexture[2] = new Texture("/resources/survivor_runningF3Left.png");
+
         meshes[0] = mesh;
         meshes[1] = new Mesh(vertices, TextureAtlas.getPlayerTexture1());
         meshes[2] = new Mesh(vertices, TextureAtlas.getPlayerTexture2());
@@ -58,8 +53,6 @@ public class Player extends Entity
     public void render()
     {
         shader.bind();
-//        TODO: Edit Player Texture coordinate and make sure they are bound before rendering!
-//        animationTexture[animationIndex].bind();
         shader.setUniform("sampler", 0);
         shader.setUniform("projection", camera.getProjectionMatrix());
         if(facingLeft)
@@ -92,19 +85,16 @@ public class Player extends Entity
     public static void setFacingLeft()
     {
         facingLeft = true;
-        System.out.println("Player facing left = " + facingLeft);
     }
 
     public static void setFacingRight()
     {
         facingLeft = false;
-        System.out.println("Player facing left = " + facingLeft);
     }
 
     @Override
     public Texture getTexture()
     {
-//        return animationTexture[animationIndex];
         return TextureAtlas.texture;
     }
 
@@ -118,5 +108,10 @@ public class Player extends Entity
     public boolean usingModelMatrix()
     {
         return true;
+    }
+
+    public static boolean isFacingLeft()
+    {
+        return facingLeft;
     }
 }
