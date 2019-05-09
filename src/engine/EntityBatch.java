@@ -5,14 +5,12 @@ import java.util.*;
 public class EntityBatch
 {
     private Map<Entity, ArrayList<Entity>> entityMap;
-//    private Queue<Entity> renderingQueue;
     private int renderingIndex;
     private Entity[] renderingOrder;
 
     public EntityBatch(int batchSize)
     {
         entityMap = new HashMap<Entity, ArrayList<Entity>>();
-//        renderingQueue = new LinkedList<Entity>();
         renderingOrder = new Entity[batchSize];
         renderingIndex = 0;
     }
@@ -25,7 +23,6 @@ public class EntityBatch
             ArrayList<Entity> arrayList = new ArrayList<Entity>();
             arrayList.add(entity);
             entityMap.put(entity, arrayList);
-//            renderingQueue.add(entity);
             indexEntity(entity);
         }
         else
@@ -49,27 +46,31 @@ public class EntityBatch
             //Add entity to the pre-existing array list
             for(Entity e: entities)
                 entityMap.get(entities[0]).add(e);
-//            renderingQueue.add(entities[0]);
+        }
+    }
+
+    public void addEntities(ArrayList<Entity> entities)
+    {
+        if(!entityMap.containsKey(entities.get(0)))
+        {
+            //create new arraylist and add it to the map
+            entityMap.put(entities.get(0), entities);
+            indexEntity(entities.get(0));
+        }
+        else
+        {
+            //Add entity to the pre-existing array list
+            for(Entity e: entities)
+                entityMap.get(entities.get(0)).add(e);
         }
     }
 
     public void render()
     {
-//        if(!entityMap.isEmpty())
-//        {
-//            // Render all entities
-//            for(ArrayList<Entity> arrayList : entityMap.values())
-//                Renderer.drawEntities(arrayList);
-//        }
-//        Queue temp = renderingQueue;
-//        if(!temp.isEmpty())
-//        {
-//            Renderer.drawEntities(entityMap.get(temp.poll()));
-//        }
-
         for(Entity entity : renderingOrder)
         {
-            Renderer.drawEntities(entityMap.get(entity));
+            if(entity != null)
+                Renderer.drawEntities(entityMap.get(entity));
         }
     }
 
