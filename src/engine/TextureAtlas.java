@@ -7,8 +7,7 @@ public class TextureAtlas
 
     public static final float atlasWidth = 512f, atlasHeight = 512f;
     public static final float bgWidth = 100f, bgHeight = 100f, bgStartX = 0f;
-    public static final float birdWidth = 125f, birdHeight = 88f, birdStartX = 336f, birdStartY = 42f;
-    public static final float pipeWidth = 52f, pipeHeight = 320f, pipeStartX = 372f, pipeStartY = 192f;
+    public static final float bulletWidth = 2f, bulletHeight = 2f, bulletStartX = 110f, bulletStartY = 0f;
     public static final float groundWidth = 10f, groundHeight = 10f, groundStartX = 100f, groundStartY = 10f;
     public static final float grassWidth = 10f, grassHeight = 6f, grassStartX = 100f, grassStartY = 20f;
     public static final float playerWidth = 10f, playerHeight = 10f, playerStartX0 = 100f, playerStartY0 = 66f, playerStartY1 = 76f, playerStartY2 = 86f;
@@ -21,42 +20,6 @@ public class TextureAtlas
     public Texture getTexture()
     {
         return texture;
-    }
-
-    public static float[] getPipeTexture()
-    {
-        return new float[]
-                {
-                        ((pipeStartX)/atlasWidth), ((pipeStartY)/atlasHeight),
-                        ((pipeStartX + pipeWidth)/atlasWidth), ((pipeStartY)/atlasHeight),
-                        ((pipeStartX + pipeWidth)/atlasWidth), ((pipeStartY + pipeHeight)/atlasHeight),
-                        ((pipeStartX)/atlasWidth), ((pipeStartY + pipeHeight)/atlasHeight)
-                };
-    }
-
-    public static float[] getPipeTexture(float h)
-    {
-        if(h > pipeHeight)
-            h = pipeHeight;
-        return new float[]
-                {
-                        ((pipeStartX)/atlasWidth), ((pipeStartY)/atlasHeight),
-                        ((pipeStartX + pipeWidth)/atlasWidth), ((pipeStartY)/atlasHeight),
-                        ((pipeStartX + pipeWidth)/atlasWidth), ((pipeStartY + h)/atlasHeight),
-                        ((pipeStartX)/atlasWidth), ((pipeStartY + h)/atlasHeight)
-                };
-    }
-
-    public static float[] getBirdTexture()
-    {
-        return new float[]
-                {
-                    ((birdStartX)/atlasWidth), ((birdStartY)/atlasHeight),
-                    ((birdStartX + birdWidth)/atlasWidth), ((birdStartY)/atlasHeight),
-                    ((birdStartX + birdWidth)/atlasWidth), ((birdStartY + birdHeight)/atlasHeight),
-                    ((birdStartX)/atlasWidth), ((birdStartY + birdHeight)/atlasHeight)
-
-                };
     }
 
     public static float[] getBackgroundTexture()
@@ -146,5 +109,14 @@ public class TextureAtlas
                 };
     }
 
-
+    public static float[] getBulletTexture()
+    {
+        return new float[]
+                {
+                        ((bulletStartX)/atlasWidth), ((bulletStartY)/atlasHeight),
+                        ((bulletStartX + bulletWidth)/atlasWidth), ((bulletStartY)/atlasHeight),
+                        ((bulletStartX + bulletWidth)/atlasWidth), ((bulletStartY + bulletHeight)/atlasHeight),
+                        ((bulletStartX)/atlasWidth), ((bulletStartY + bulletHeight)/atlasHeight)
+                };
+    }
 }
