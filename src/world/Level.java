@@ -3,28 +3,36 @@ package world;
 import core.Main;
 import engine.Entity;
 import engine.EntityBatch;
+import engine.Handler;
+import engine.Renderer;
+import entities.Bullet;
 import entities.Player;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 
 public class Level
 {
+    private static final float deltaBulletDistance = 25f;
     private static Ground[] grounds = new Ground[3];
+    private static ArrayList<Entity> bulletList;
+
     private Background background;
     private Player player;
     private EntityBatch entityBatch;
 
     public static float deltaGroundMovement = 0;
+    private static float bulletLeftThreshold = 0, bulletRightThreshold = 0;
 
     public Level()
     {
-        entityBatch = new EntityBatch(5);
+        entityBatch = new EntityBatch(6);
         background = new Background();
+        bulletList = new ArrayList<Entity>();
 
         for(int i = 0; i < grounds.length; i++)
         {
             grounds[i] = new Ground(-Main.WIDTH + (i * Main.WIDTH));
-//            entityBatch.addEntities(grounds[i].getGrassArray());
             System.out.println("Ground at: " + i + ", grassCount = " + grounds[i].grassCount);
         }
         grounds[0].positionVector.x = -Main.WIDTH;
@@ -36,16 +44,17 @@ public class Level
         entityBatch.addEntities(grounds);
         for(Ground ground : grounds)
             entityBatch.addEntities(ground.getGrassArray());
+
+        bulletLeftThreshold = Player.XPOSITION - deltaBulletDistance - Bullet.gunOffset;
+        bulletRightThreshold = Player.XPOSITION + Bullet.gunOffset + deltaBulletDistance + Bullet.WIDTH;
+        System.out.println(bulletLeftThreshold + " , " + bulletRightThreshold);
     }
 
     public void render()
     {
-//        background.render();
-//        for(Ground ground : grounds)
-//            ground.render();
-//        player.render();
         entityBatch.render();
         player.render();
+        Renderer.drawEntities(bulletList);
     }
 
     public void update()
@@ -53,6 +62,27 @@ public class Level
         for(Ground ground : grounds)
             ground.update();
 
+        if(Handler.isKeyDown(GLFW.GLFW_KEY_SPACE))
+        {
+            if(bulletList.isEmpty())
+            {
+                Bullet bullet = new Bullet(Player.isFacingLeft());
+                bulletList.add(bullet);
+            }else
+            {
+                Entity previousBullet = bulletList.get(bulletList.size() - 1);
+                if(previousBullet.positionVector.x() <= bulletLeftThreshold || previousBullet.positionVector.x() >= bulletRightThreshold)
+                    bulletList.add(new Bullet(Player.isFacingLeft()));
+            }
+        }
+
+        for(int i = 0; i < bulletList.size(); i++)
+        {
+            if(bulletList.get(i).positionVector.x() < 0 || bulletList.get(i).positionVector.x() > Main.WIDTH)
+                bulletList.remove(i);
+            else
+                bulletList.get(i).update();
+        }
         player.update();
     }
 }
