@@ -12,6 +12,8 @@ public class Bullet extends Entity
     private float xSpeed = 0f;
     private static final float SPEED = 2f;
     private boolean facingLeft;
+    private float accelerateX = 0.01f;
+    private static final float maxAcceleration = 5f;
 
     public Bullet(boolean facingLeft)
     {
@@ -58,7 +60,12 @@ public class Bullet extends Entity
     @Override
     public void update()
     {
-        positionVector.x += xSpeed;
+        if(!facingLeft)
+            positionVector.x += xSpeed + accelerateX;
+        else
+            positionVector.x += xSpeed - accelerateX;
+        if(accelerateX <= maxAcceleration)
+            accelerateX += 1f;
     }
 
     @Override
