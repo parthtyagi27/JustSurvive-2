@@ -7,6 +7,7 @@ import engine.Handler;
 import engine.Renderer;
 import entities.Bullet;
 import entities.Player;
+import entities.Robot;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class Level
 
     public static float deltaGroundMovement = 0;
     private static float bulletLeftThreshold = 0, bulletRightThreshold = 0;
+
+    private Robot robot;
 
     public Level()
     {
@@ -47,7 +50,8 @@ public class Level
 
         bulletLeftThreshold = Player.XPOSITION - deltaBulletDistance - Bullet.gunOffset;
         bulletRightThreshold = Player.XPOSITION + Bullet.gunOffset + deltaBulletDistance + Bullet.WIDTH;
-        System.out.println(bulletLeftThreshold + " , " + bulletRightThreshold);
+
+        robot = new Robot();
     }
 
     public void render()
@@ -55,6 +59,7 @@ public class Level
         entityBatch.render();
         player.render();
         Renderer.drawEntities(bulletList);
+        robot.render();
     }
 
     public void update()
@@ -78,11 +83,13 @@ public class Level
 
         for(int i = 0; i < bulletList.size(); i++)
         {
-            if(bulletList.get(i).positionVector.x() < 0 || bulletList.get(i).positionVector.x() > Main.WIDTH)
+            if(bulletList.get(i).positionVector.x() <= -Bullet.WIDTH * 5 || bulletList.get(i).positionVector.x() >= (Main.WIDTH + Bullet.WIDTH) * 5)
                 bulletList.remove(i);
             else
                 bulletList.get(i).update();
         }
         player.update();
+
+        robot.update();
     }
 }
