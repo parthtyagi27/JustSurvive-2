@@ -14,6 +14,7 @@ public class Bullet extends Entity
     private boolean facingLeft;
     private float accelerateX = 0.01f;
     private static final float maxAcceleration = 5f;
+    public static final float damage = 10f;
 
     public Bullet(boolean facingLeft)
     {

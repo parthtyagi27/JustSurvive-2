@@ -110,7 +110,8 @@ public class Renderer
         for(int i = 0; i < entityArrayList.size(); i++)
         {
             entityArrayList.get(0).shader.setUniform("sampler", entityArrayList.get(i).samplerIndex);
-            if(entityArrayList.get(i).usingModelMatrix()) {
+            if(entityArrayList.get(i).usingModelMatrix())
+            {
                 entityArrayList.get(0).shader.setUniform("model", Transformation.createTransformation(entityArrayList.get(i).positionVector).scale(entityArrayList.get(i).scale));
             }
             GL15.glDrawElements(GL15.GL_TRIANGLES, mesh.getVertexCount(), GL15.GL_UNSIGNED_INT, 0);

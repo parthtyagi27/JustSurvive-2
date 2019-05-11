@@ -24,8 +24,9 @@ public class Level
 
     public static float deltaGroundMovement = 0;
     private static float bulletLeftThreshold = 0, bulletRightThreshold = 0;
+    private static final float maxRobots = 10;
 
-    private Robot robot;
+    private ArrayList<Robot> robots;
 
     public Level()
     {
@@ -51,7 +52,7 @@ public class Level
         bulletLeftThreshold = Player.XPOSITION - deltaBulletDistance - Bullet.gunOffset;
         bulletRightThreshold = Player.XPOSITION + Bullet.gunOffset + deltaBulletDistance + Bullet.WIDTH;
 
-        robot = new Robot();
+        robots = new ArrayList<Robot>();
     }
 
     public void render()
@@ -59,7 +60,7 @@ public class Level
         entityBatch.render();
         player.render();
         Renderer.drawEntities(bulletList);
-        robot.render();
+        Robot.renderRobots(robots);
     }
 
     public void update()
@@ -87,9 +88,41 @@ public class Level
                 bulletList.remove(i);
             else
                 bulletList.get(i).update();
+
+            for(Robot robot : robots)
+            {
+                if(bulletList.isEmpty() || robots.isEmpty())
+                {
+                    return;
+                }else
+                {
+                    Entity bullet = bulletList.get(i);
+                    if (robot.isLeft() && bullet.positionVector.x() <= robot.positionVector.x() + Robot.WIDTH / 2)
+                    {
+                        robot.health -= Bullet.damage;
+                        bulletList.remove(i);
+                    } else if (!robot.isLeft() && bullet.positionVector.x() + Bullet.WIDTH >= robot.positionVector.x() - Robot.WIDTH / 2)
+                    {
+                        robot.health -= Bullet.damage;
+                        bulletList.remove(i);
+                    }
+                }
+            }
         }
         player.update();
 
-        robot.update();
+        for(int i = 0; i < robots.size(); i++)
+        {
+            if(robots.get(i).health <= 0)
+                robots.remove(i);
+            else
+                robots.get(i).update(player);
+        }
+    }
+
+    public void perSecondUpdates()
+    {
+        if(robots.size() <= maxRobots)
+            robots.add(new Robot());
     }
 }

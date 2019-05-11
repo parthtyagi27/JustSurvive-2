@@ -72,6 +72,7 @@ public class Main
                     frameTime = 0;
                     System.out.println("FPS = " + frames);
                     frames = 0;
+                    level.perSecondUpdates();
                 }
             }
 
