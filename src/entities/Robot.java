@@ -2,6 +2,7 @@ package entities;
 
 import core.Main;
 import engine.*;
+import org.lwjgl.system.CallbackI;
 import world.Ground;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Robot extends Entity
     {
         super();
         camera = Main.camera;
-        shader = Shader.grassShader;
+        shader = Shader.playerShader;
         scale = 3f;
         WIDTH = TextureAtlas.robotWidth * scale;
         HEIGHT = TextureAtlas.robotHeight * scale;
@@ -92,11 +93,46 @@ public class Robot extends Entity
     public void update()
     {
         if(isLeft)
-            positionVector.x += XSPEED;
-        else
-            positionVector.x -= XSPEED;
-
-        deltaMovement += XSPEED;
+        {
+            if(Ground.isMoving)
+            {
+                if(Player.isFacingLeft())
+                {
+                    //Robot is to the left and Player is facing left
+                    positionVector.x += XSPEED + Ground.xSPEED;
+                    deltaMovement += XSPEED + Ground.xSPEED;
+                }else
+                {
+                    //Robot is to the left and Player is facing right
+                    positionVector.x += XSPEED - Ground.xSPEED;
+                    deltaMovement += XSPEED - Ground.xSPEED;
+                }
+            }else
+            {
+                positionVector.x += XSPEED;
+                deltaMovement += XSPEED;
+            }
+        }else
+        {
+            if(Ground.isMoving)
+            {
+                if(Player.isFacingLeft())
+                {
+                    //Robot is to the right and Player is facing left
+                    positionVector.x -= XSPEED - Ground.xSPEED;
+                    deltaMovement += XSPEED - Ground.xSPEED;
+                }else
+                {
+                    //Robot is to the right and Player is facing right
+                    positionVector.x -= XSPEED + Ground.xSPEED;
+                    deltaMovement += XSPEED + Ground.xSPEED;
+                }
+            }else
+            {
+                positionVector.x -= XSPEED;
+                deltaMovement += XSPEED;
+            }
+        }
 
         if(deltaMovement % 9 == 0)
         {
@@ -111,18 +147,29 @@ public class Robot extends Entity
 
     public void update(Player player)
     {
+//        if(isLeft)
+//        {
+//            //Robot is to the left of the player
+//            if(positionVector.x() + WIDTH/2 >= player.positionVector.x() - Player.WIDTH)
+//            {
+//                XSPEED = 0;
+//                meshIndex = 0;
+//            }
+//        }else
+//        {
+//            //Robot is to the right of the player
+//            if(positionVector.x() - WIDTH/2 <= player.positionVector.x() + Player.WIDTH)
+//            {
+//                XSPEED = 0;
+//                meshIndex = 0;
+//            }
+//        }
+
+        if(isLeft && positionVector.x >= player.positionVector.x() + Player.WIDTH)
+            isLeft = false;
+        else if(!isLeft && positionVector.x <= player.positionVector.x() - Player.WIDTH)
+            isLeft = true;
         update();
-        if(isLeft)
-        {
-            //Robot is to the left of the player
-            if(positionVector.x() + WIDTH/2 >= player.positionVector.x() - Player.WIDTH/2)
-                XSPEED = 0;
-        }else
-        {
-            //Robot is to the right of the player
-            if(positionVector.x() - WIDTH/2 <= player.positionVector.x() + Player.WIDTH/2)
-                XSPEED = 0;
-        }
     }
 
     @Override
