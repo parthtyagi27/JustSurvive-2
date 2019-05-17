@@ -17,6 +17,7 @@ public class Player extends Entity
     private static Mesh[] meshes = new Mesh[3];
     public static float XPOSITION;
     private static boolean facingLeft = true;
+    public float health = 100;
 
     public Player()
     {
