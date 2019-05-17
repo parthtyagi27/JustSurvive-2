@@ -165,10 +165,51 @@ public class Robot extends Entity
 //            }
 //        }
 
-        if(isLeft && positionVector.x >= player.positionVector.x() + Player.WIDTH)
-            isLeft = false;
-        else if(!isLeft && positionVector.x <= player.positionVector.x() - Player.WIDTH)
-            isLeft = true;
+        if(isLeft)
+        {
+            if(!Ground.isMoving)
+            {
+                if(positionVector.x() + WIDTH/2 >= player.positionVector.x() - Player.WIDTH)
+                {
+                    XSPEED = 0;
+                    meshIndex = 0;
+                    player.health -= 5f;
+                }
+            }else
+            {
+                if(positionVector.x >= player.positionVector.x() + Player.WIDTH)
+                {
+                    isLeft = false;
+                    player.health -= 10f;
+                    XSPEED = 2f;
+                }
+            }
+        }else
+        {
+            if(!Ground.isMoving)
+            {
+                if(positionVector.x() - WIDTH/2 <= player.positionVector.x() + Player.WIDTH)
+                {
+                    XSPEED = 0;
+                    meshIndex = 0;
+                    player.health -= 5f;
+                }
+            }else
+            {
+                if(positionVector.x <= player.positionVector.x() - Player.WIDTH)
+                {
+                    isLeft = true;
+                    player.health -= 10f;
+                    XSPEED = 2f;
+                }
+            }
+        }
+
+//        if(isLeft && positionVector.x >= player.positionVector.x() + Player.WIDTH)
+//            isLeft = false;
+//        else if(!isLeft && positionVector.x <= player.positionVector.x() - Player.WIDTH)
+//            isLeft = true;
+//        System.out.println("Player Health = " + player.health);
         update();
     }
 
