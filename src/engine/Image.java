@@ -18,7 +18,6 @@ public class Image
         BufferedImage bufferedImage = null;
         try
         {
-            System.out.println(path);
             bufferedImage = ImageIO.read(getClass().getResourceAsStream(path));
             width = bufferedImage.getWidth();
             height = bufferedImage.getHeight();
