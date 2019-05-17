@@ -29,8 +29,7 @@ public class Main
         //Init and render the window object
         window.setCallBack();
         window = new Window(WIDTH, HEIGHT, "Just Survive 2.0", false);
-        //TODO: Fix window icon error (input == null)
-//        window.setIcon("/resources/icon.png");
+        window.setIcon("/resources/icon.png");
         window.render();
 
         GLFW.glfwMakeContextCurrent(window.getWindowID());
