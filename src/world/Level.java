@@ -52,7 +52,7 @@ public class Level
         bulletLeftThreshold = Player.XPOSITION - deltaBulletDistance - Bullet.gunOffset;
         bulletRightThreshold = Player.XPOSITION + Bullet.gunOffset + deltaBulletDistance + Bullet.WIDTH;
 
-        robots = new ArrayList<Robot>();
+        robots = new ArrayList<>();
     }
 
     public void render()
@@ -65,6 +65,7 @@ public class Level
 
     public void update()
     {
+
         for(Ground ground : grounds)
             ground.update();
 
@@ -74,13 +75,18 @@ public class Level
             {
                 Bullet bullet = new Bullet(Player.isFacingLeft());
                 bulletList.add(bullet);
+
             }else
             {
                 Entity previousBullet = bulletList.get(bulletList.size() - 1);
                 if(previousBullet.positionVector.x() <= bulletLeftThreshold || previousBullet.positionVector.x() >= bulletRightThreshold)
+                {
                     bulletList.add(new Bullet(Player.isFacingLeft()));
+                }
             }
         }
+
+
 
         for(int i = 0; i < bulletList.size(); i++)
         {
@@ -88,36 +94,49 @@ public class Level
                 bulletList.remove(i);
             else
                 bulletList.get(i).update();
+        }
 
-            for(Robot robot : robots)
+        player.update();
+        for(int i = 0; i < robots.size(); i++)
+        {
+            if(robots.get(i).health <= 0)
             {
-                if(bulletList.isEmpty() || robots.isEmpty())
-                {
-                    return;
-                }else
+                robots.remove(i);
+            }
+            else
+            {
+                robots.get(i).update(player);
+            }
+        }
+
+
+
+        try
+        {
+
+            for (int i = 0; i < bulletList.size(); i++)
+            {
+                for (Robot robot : robots)
                 {
                     Entity bullet = bulletList.get(i);
                     if (robot.isLeft() && bullet.positionVector.x() <= robot.positionVector.x() + Robot.WIDTH / 2)
                     {
                         robot.health -= Bullet.damage;
                         bulletList.remove(i);
+                        bulletList.trimToSize();
                     } else if (!robot.isLeft() && bullet.positionVector.x() + Bullet.WIDTH >= robot.positionVector.x() - Robot.WIDTH / 2)
                     {
                         robot.health -= Bullet.damage;
                         bulletList.remove(i);
+                        bulletList.trimToSize();
                     }
                 }
             }
         }
-        player.update();
+        catch (Exception ignored)
+        {}
 
-        for(int i = 0; i < robots.size(); i++)
-        {
-            if(robots.get(i).health <= 0)
-                robots.remove(i);
-            else
-                robots.get(i).update(player);
-        }
+
     }
 
     public void perSecondUpdates()
