@@ -51,6 +51,8 @@ public class Renderer
 
     public static void drawEntities(Entity[] entityArray, float scale)
     {
+        if(entityArray[0] == null)
+            return;
         entityArray[0].shader.bind();
         entityArray[0].shader.setUniform("sampler", 0);
         entityArray[0].shader.setUniform("projection", entityArray[0].camera.getProjectionMatrix());
@@ -72,6 +74,8 @@ public class Renderer
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, mesh.getIndexID());
         for(int i = 0; i < entityArray.length; i++)
         {
+            if(entityArray[i] == null)
+                break;
             entityArray[0].shader.setUniform("model", Transformation.createTransformation(entityArray[i].positionVector).scale(scale));
             GL15.glDrawElements(GL15.GL_TRIANGLES, mesh.getVertexCount(), GL15.GL_UNSIGNED_INT, 0);
         }
