@@ -18,12 +18,13 @@ public class Robot extends Entity
     private float XSPEED = 2f;
     private float deltaMovement = 0f;
     public float health = 100f;
+    public boolean red = false;
 
     public Robot()
     {
         super();
         camera = Main.camera;
-        shader = Shader.playerShader;
+        shader = Shader.robotShader;
         scale = 3f;
         WIDTH = TextureAtlas.robotWidth * scale;
         HEIGHT = TextureAtlas.robotHeight * scale;
@@ -64,6 +65,13 @@ public class Robot extends Entity
 
         for(Robot robot : robotArrayList)
         {
+            if(robot.red)
+            {
+                firstRobot.shader.setUniform("red", 1);
+                firstRobot.red = false;
+            }
+            else
+                firstRobot.shader.setUniform("red", 0);
             if(robot.isLeft)
                 firstRobot.shader.setUniform("model", Transformation.createTransformation(robot.positionVector).scale(robot.scale).reflect(1, 0, 0, 0));
             else
@@ -173,14 +181,14 @@ public class Robot extends Entity
                 {
                     XSPEED = 0;
                     meshIndex = 0;
-                    player.health -= 5f;
+                    player.health -= 0.5f;
                 }
             }else
             {
                 if(positionVector.x >= player.positionVector.x() + Player.WIDTH)
                 {
                     isLeft = false;
-                    player.health -= 10f;
+                    player.health -= 5f;
                     XSPEED = 2f;
                 }
             }
@@ -192,14 +200,14 @@ public class Robot extends Entity
                 {
                     XSPEED = 0;
                     meshIndex = 0;
-                    player.health -= 5f;
+                    player.health -= 0.5f;
                 }
             }else
             {
                 if(positionVector.x <= player.positionVector.x() - Player.WIDTH)
                 {
                     isLeft = true;
-                    player.health -= 10f;
+                    player.health -= 5f;
                     XSPEED = 2f;
                 }
             }
