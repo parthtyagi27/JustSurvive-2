@@ -26,7 +26,7 @@ public class Renderer
 
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, mesh.getIndexID());
 
-        GL15.glDrawElements(GL15.GL_TRIANGLES, mesh.getVertexCount(), GL15.GL_UNSIGNED_INT, 0);
+        GL15.glDrawElements(GL15.GL_TRIANGLES, Mesh.indicies.length, GL15.GL_UNSIGNED_INT, 0);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 
@@ -53,7 +53,8 @@ public class Renderer
     {
         if(entityArray[0] == null)
             return;
-        entityArray[0].shader.bind();
+        if(!entityArray[0].shader.isBound())
+            entityArray[0].shader.bind();
         entityArray[0].shader.setUniform("sampler", 0);
         entityArray[0].shader.setUniform("projection", entityArray[0].camera.getProjectionMatrix());
 
@@ -92,8 +93,10 @@ public class Renderer
     {
         if(entityArrayList.isEmpty())
             return;
-        entityArrayList.get(0).shader.bind();
-        entityArrayList.get(0).getTexture().bind();
+        if (!entityArrayList.get(0).shader.isBound())
+            entityArrayList.get(0).shader.bind();
+        if(entityArrayList.get(0).getMesh().isUsingTexture())
+            entityArrayList.get(0).getTexture().bind();
         entityArrayList.get(0).shader.setUniform("projection", entityArrayList.get(0).camera.getProjectionMatrix());
 
         Mesh mesh = entityArrayList.get(0).getMesh();
@@ -118,7 +121,7 @@ public class Renderer
             {
                 entityArrayList.get(0).shader.setUniform("model", Transformation.createTransformation(entityArrayList.get(i).positionVector).scale(entityArrayList.get(i).scale));
             }
-            GL15.glDrawElements(GL15.GL_TRIANGLES, mesh.getVertexCount(), GL15.GL_UNSIGNED_INT, 0);
+            GL15.glDrawElements(GL15.GL_TRIANGLES, Mesh.indicies.length, GL15.GL_UNSIGNED_INT, 0);
         }
 
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
