@@ -13,8 +13,9 @@ public class Shader
 {
 //  Creates and manages Shader programs for OpenGL
     private  int program, vertexShaderID, fragmentShaderID;
+    private boolean isBound = false;
 //  All Shaders are static so they can easily be used, also Shaders don't need to be instanced as it leads to redundancies
-    public static Shader backgroundShader, groundShader, grassShader, playerShader;
+    public static Shader playerShader, robotShader, genericStaticShader, genericDynamicShader, healthBarShader;
 
     public Shader(String filename)
     {
@@ -61,10 +62,14 @@ public class Shader
 
     public static void loadShaders()
     {
-        backgroundShader = new Shader("/shaders/background");
-        groundShader = new Shader("/shaders/ground");
-        grassShader = new Shader("/shaders/grass");
+//        backgroundShader = new Shader("/shaders/background");
+//        groundShader = new Shader("/shaders/ground");
+//        grassShader = new Shader("/shaders/grass");
         playerShader = new Shader("/shaders/player");
+        robotShader = new Shader("/shaders/robot");
+        genericStaticShader = new Shader("/shaders/genericStaticShader");
+        genericDynamicShader = new Shader("/shaders/genericDynamicShader");
+        healthBarShader = new Shader("/shaders/healthBar");
     }
 
     public void setUniform(String name, int value)
@@ -92,9 +97,15 @@ public class Shader
             GL20.glUniformMatrix3fv(location, false, buffer);
     }
 
+    public boolean isBound()
+    {
+        return isBound;
+    }
+
     public void bind()
     {
         GL20.glUseProgram(program);
+        isBound = true;
     }
 
     public void delete()
@@ -108,15 +119,20 @@ public class Shader
 
     public static void deleteAll()
     {
-        backgroundShader.delete();
-        groundShader.delete();
-        grassShader.delete();
+//        backgroundShader.delete();
+//        groundShader.delete();
+//        grassShader.delete();
         playerShader.delete();
+        robotShader.delete();
+        genericStaticShader.delete();
+        genericDynamicShader.delete();
+        healthBarShader.delete();
     }
 
     public void unbind()
     {
         GL20.glUseProgram(0);
+        isBound = false;
     }
 
     private String readFile(String filename)
