@@ -13,7 +13,7 @@ public class Mesh
     private int vertexCount, vertexID, textureID, indexID;
     private final boolean usingTexture;
 
-    private int[] indicies = new int[]{
+    public static int[] indicies = new int[]{
             0, 1, 2,
             2, 3, 0
     };
@@ -38,6 +38,7 @@ public class Mesh
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }
+
 
 
     public Mesh(float[] verticies, float[] textures)
