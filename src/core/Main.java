@@ -111,7 +111,7 @@ public class Main
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         Shader.loadShaders();
         Handler.loadHandler(window);
-        TextureAtlas.loadTextureAtlas("/resources/textureAtlas.png");
+        TextureAtlas.loadTextureAtlas("/resources/Untitled.png");
         TextureAtlas.texture.bind(0);
     }
 
