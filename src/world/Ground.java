@@ -26,7 +26,7 @@ public class Ground extends Entity
     {
         super();
         camera = Main.camera;
-        shader = Shader.groundShader;
+        shader = Shader.genericDynamicShader;
 
         float[] vertices =
                 {

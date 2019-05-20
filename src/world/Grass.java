@@ -22,7 +22,7 @@ public class Grass extends Entity
     {
         super();
         camera = Main.camera;
-        shader = Shader.grassShader;
+        shader = Shader.genericDynamicShader;
         float[] vertices =
                 {
                         0, HEIGHT, 0,

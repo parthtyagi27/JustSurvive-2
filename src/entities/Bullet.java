@@ -32,7 +32,7 @@ public class Bullet extends Entity
                 };
 
         camera = Main.camera;
-        shader = Shader.grassShader;
+        shader = Shader.genericDynamicShader;
 
         mesh = new Mesh(vertices, TextureAtlas.getBulletTexture());
         this.facingLeft = facingLeft;
