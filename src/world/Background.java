@@ -24,7 +24,7 @@ public class Background extends Entity
     {
         super();
         camera = Main.camera;
-        shader = Shader.backgroundShader;
+        shader = Shader.genericStaticShader;
 
         float[] vertices =
                 {
