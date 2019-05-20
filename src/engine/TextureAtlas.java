@@ -12,7 +12,7 @@ public class TextureAtlas
     public static final float grassWidth = 10f, grassHeight = 6f, grassStartX = 100f, grassStartY = 20f;
     public static final float playerWidth = 10f, playerHeight = 10f, playerStartX0 = 100f, playerStartY0 = 66f, playerStartY1 = 76f, playerStartY2 = 86f;
     public static final float robotWidth = 10f, robotHeight = 10f, robotStartX = 100f, robotStartY = 26f;
-
+    public static final float healthBarWidth = 10f, healthBarHeight = 10f, healthBarStartX = 110f, healthBarStartY = 10f;
     public static void loadTextureAtlas(String file)
     {
         texture = new Texture(file);
@@ -129,6 +129,17 @@ public class TextureAtlas
                         ((bulletStartX + bulletWidth)/atlasWidth), ((bulletStartY)/atlasHeight),
                         ((bulletStartX + bulletWidth)/atlasWidth), ((bulletStartY + bulletHeight)/atlasHeight),
                         ((bulletStartX)/atlasWidth), ((bulletStartY + bulletHeight)/atlasHeight)
+                };
+    }
+
+    public static float[] getHealthBarTexture()
+    {
+        return new float[]
+                {
+                        ((healthBarStartX)/atlasWidth), ((healthBarStartY)/atlasHeight),
+                        ((healthBarStartX + healthBarWidth)/atlasWidth), ((healthBarStartY)/atlasHeight),
+                        ((healthBarStartX + healthBarWidth)/atlasWidth), ((healthBarStartY + healthBarHeight)/atlasHeight),
+                        ((healthBarStartX)/atlasWidth), ((healthBarStartY + healthBarHeight)/atlasHeight)
                 };
     }
 }
